@@ -1,5 +1,10 @@
 <?php
 /**
+ * ***********************************************************************************************************
+ * WARNING: This file is no longerin sync with the upstream
+ * https://github.com/radig/cakephp-mongodb/tree/cake2.2 has been abandoned.
+ * ***********************************************************************************************************
+ *
  * A CakePHP datasource for the mongoDB (http://www.mongodb.org/) document-oriented database.
  *
  * This datasource uses Pecl Mongo (http://php.net/mongo)
@@ -26,6 +31,7 @@
 
 App::uses('DboSource', 'Model/Datasource');
 App::uses('SchemalessBehavior', 'Mongodb.Model/Behavior');
+App::uses('String', 'Utility');
 
 /**
  * MongoDB Source
@@ -1237,10 +1243,11 @@ class MongodbSource extends DboSource {
  *
  * @param mixed $data A value or an array of values to prepare.
  * @param string $column The column into which this data will be inserted
+ * @param bool $null Column allows NULL values. This param is ignored but required when extending.
  * @return mixed Prepared value or array of values.
  * @access public
  */
-	public function value($data, $column = null) {
+	public function value($data, $column = null, $null = true) {
 		if (is_array($data) && !empty($data)) {
 			return array_map(
 				array(&$this, 'value'),
